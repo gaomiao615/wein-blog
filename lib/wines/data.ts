@@ -1,0 +1,586 @@
+// 葡萄酒数据
+export interface Wine {
+  id: string;
+  name: string;
+  nameDe?: string;
+  nameZh?: string;
+  qrCode?: string; // 二维码内容，用于匹配
+  barcode?: string; // 条形码
+  country: string;
+  countryDe?: string;
+  countryZh?: string;
+  region: string;
+  regionDe?: string;
+  regionZh?: string;
+  grapes: string[];
+  grapesDe?: string[];
+  grapesZh?: string[];
+  color: 'red' | 'white' | 'rose';
+  style: 'still' | 'sparkling' | 'fortified';
+  sweetness: 'dry' | 'off-dry' | 'medium' | 'sweet';
+  body: 'light' | 'medium' | 'full';
+  price: 'budget' | 'mid' | 'premium';
+  tasting: string;
+  tastingDe?: string;
+  tastingZh?: string;
+  pairing: string;
+  pairingDe?: string;
+  pairingZh?: string;
+  year?: number;
+  alcohol?: number;
+  imageUrl?: string;
+  sourceUrl?: string; // 原网址链接
+}
+
+export const wines: Wine[] = [
+  {
+    id: '1',
+    name: 'Riesling Trocken',
+    nameDe: 'Riesling Trocken',
+    nameZh: '干型雷司令',
+    qrCode: 'WEIN-RIESLING-TROCKEN-001',
+    barcode: '4001234567890',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Mosel',
+    regionDe: 'Mosel',
+    regionZh: '摩泽尔',
+    grapes: ['Riesling'],
+    grapesDe: ['Riesling'],
+    grapesZh: ['雷司令'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'mid',
+    tasting: 'Crisp and refreshing with notes of green apple, citrus, and minerality. High acidity with a clean finish.',
+    tastingDe: 'Knackig und erfrischend mit Noten von grünem Apfel, Zitrusfrüchten und Mineralität. Hohe Säure mit sauberem Abgang.',
+    tastingZh: '清爽怡人，带有青苹果、柑橘和矿物质的味道。高酸度，收尾干净。',
+    pairing: 'Perfect with seafood, light salads, and Asian cuisine.',
+    pairingDe: 'Perfekt zu Meeresfrüchten, leichten Salaten und asiatischer Küche.',
+    pairingZh: '与海鲜、清淡沙拉和亚洲料理完美搭配。',
+    year: 2022,
+    alcohol: 12.5,
+  },
+  {
+    id: '2',
+    name: 'Spätburgunder',
+    nameDe: 'Spätburgunder',
+    nameZh: '黑皮诺',
+    qrCode: 'WEIN-SPATBURGUNDER-002',
+    barcode: '4001234567891',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Baden',
+    regionDe: 'Baden',
+    regionZh: '巴登',
+    grapes: ['Pinot Noir'],
+    grapesDe: ['Spätburgunder'],
+    grapesZh: ['黑皮诺'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'medium',
+    price: 'premium',
+    tasting: 'Elegant and refined with cherry, raspberry, and earthy notes. Smooth tannins with a long finish.',
+    tastingDe: 'Elegant und raffiniert mit Kirsch-, Himbeer- und erdigen Noten. Sanfte Tannine mit langem Abgang.',
+    tastingZh: '优雅精致，带有樱桃、覆盆子和泥土的味道。单宁柔顺，余味悠长。',
+    pairing: 'Excellent with roasted meats, game, and mushroom dishes.',
+    pairingDe: 'Ausgezeichnet zu gebratenem Fleisch, Wild und Pilzgerichten.',
+    pairingZh: '与烤肉、野味和蘑菇菜肴搭配极佳。',
+    year: 2021,
+    alcohol: 13.5,
+  },
+  {
+    id: '3',
+    name: 'Gewürztraminer',
+    nameDe: 'Gewürztraminer',
+    nameZh: '琼瑶浆',
+    qrCode: 'WEIN-GEWURZTRAMINER-003',
+    barcode: '4001234567892',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Pfalz',
+    regionDe: 'Pfalz',
+    regionZh: '普法尔茨',
+    grapes: ['Gewürztraminer'],
+    grapesDe: ['Gewürztraminer'],
+    grapesZh: ['琼瑶浆'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'off-dry',
+    body: 'full',
+    price: 'mid',
+    tasting: 'Aromatic and spicy with lychee, rose petals, and exotic fruits. Rich and full-bodied.',
+    tastingDe: 'Aromatisch und würzig mit Litschi, Rosenblättern und exotischen Früchten. Reich und vollmundig.',
+    tastingZh: '芳香辛辣，带有荔枝、玫瑰花瓣和异域水果的味道。浓郁饱满。',
+    pairing: 'Pairs well with spicy Asian dishes, curry, and strong cheeses.',
+    pairingDe: 'Passt gut zu würzigen asiatischen Gerichten, Curry und kräftigen Käsesorten.',
+    pairingZh: '与辛辣的亚洲菜肴、咖喱和浓郁奶酪搭配良好。',
+    year: 2022,
+    alcohol: 13.0,
+  },
+  {
+    id: '4',
+    name: 'Dornfelder',
+    nameDe: 'Dornfelder',
+    nameZh: '丹菲特',
+    qrCode: 'WEIN-DORNFELDER-004',
+    barcode: '4001234567893',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Pfalz',
+    regionDe: 'Pfalz',
+    regionZh: '普法尔茨',
+    grapes: ['Dornfelder'],
+    grapesDe: ['Dornfelder'],
+    grapesZh: ['丹菲特'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'full',
+    price: 'budget',
+    tasting: 'Deep color with dark fruit flavors, blackberry, and plum. Soft tannins, easy-drinking.',
+    tastingDe: 'Tiefe Farbe mit dunklen Fruchtaromen, Brombeere und Pflaume. Sanfte Tannine, leicht trinkbar.',
+    tastingZh: '深色，带有深色水果、黑莓和李子的味道。单宁柔和，易于饮用。',
+    pairing: 'Great with grilled meats, pasta, and casual meals.',
+    pairingDe: 'Großartig zu gegrilltem Fleisch, Pasta und einfachen Mahlzeiten.',
+    pairingZh: '与烤肉、意大利面和便餐搭配很好。',
+    year: 2023,
+    alcohol: 12.0,
+    imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=600&fit=crop',
+  },
+  {
+    id: '5',
+    name: 'Sekt',
+    nameDe: 'Sekt',
+    nameZh: '德国起泡酒',
+    qrCode: 'WEIN-SEKT-005',
+    barcode: '4001234567894',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Rheingau',
+    regionDe: 'Rheingau',
+    regionZh: '莱茵高',
+    grapes: ['Riesling'],
+    grapesDe: ['Riesling'],
+    grapesZh: ['雷司令'],
+    color: 'white',
+    style: 'sparkling',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'mid',
+    tasting: 'Fresh and lively with fine bubbles. Citrus and apple notes with a crisp finish.',
+    tastingDe: 'Frisch und lebendig mit feinen Bläschen. Zitrus- und Apfelnoten mit knackigem Abgang.',
+    tastingZh: '新鲜活泼，气泡细腻。带有柑橘和苹果的味道，收尾清爽。',
+    pairing: 'Perfect for celebrations, aperitifs, and light appetizers.',
+    pairingDe: 'Perfekt für Feiern, Aperitifs und leichte Vorspeisen.',
+    pairingZh: '适合庆祝、开胃酒和清淡开胃菜。',
+    year: 2022,
+    alcohol: 11.5,
+    imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=600&fit=crop',
+  },
+  // 西班牙葡萄酒
+  {
+    id: '6',
+    name: 'Pesquera Crianza',
+    nameDe: 'Pesquera Crianza',
+    nameZh: '佩斯奎拉陈酿',
+    qrCode: 'WEIN-PESQUERA-CRIANZA-006',
+    barcode: '8410001001234',
+    country: 'Spain',
+    countryDe: 'Spanien',
+    countryZh: '西班牙',
+    region: 'Ribera del Duero',
+    regionDe: 'Ribera del Duero',
+    regionZh: '杜埃罗河岸',
+    grapes: ['Tempranillo'],
+    grapesDe: ['Tempranillo'],
+    grapesZh: ['丹魄'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'full',
+    price: 'premium',
+    tasting: 'Rich and powerful with dark fruit, vanilla, and spice. Well-structured tannins with a long finish.',
+    tastingDe: 'Reich und kräftig mit dunklen Früchten, Vanille und Gewürzen. Wohlstrukturierte Tannine mit langem Abgang.',
+    tastingZh: '浓郁有力，带有深色水果、香草和香料的味道。结构良好的单宁，余味悠长。',
+    pairing: 'Perfect with grilled meats, lamb, and aged cheeses.',
+    pairingDe: 'Perfekt zu gegrilltem Fleisch, Lamm und gereiftem Käse.',
+    pairingZh: '与烤肉、羊肉和陈年奶酪完美搭配。',
+    year: 2022,
+    alcohol: 14.0,
+    sourceUrl: 'https://www.moevenpick-wein.de/2022-pesquera-crianza-ribera',
+  },
+  {
+    id: '7',
+    name: 'Rioja Reserva',
+    nameDe: 'Rioja Reserva',
+    nameZh: '里奥哈珍藏',
+    qrCode: 'WEIN-RIOJA-RESERVA-007',
+    barcode: '8410001001235',
+    country: 'Spain',
+    countryDe: 'Spanien',
+    countryZh: '西班牙',
+    region: 'Rioja',
+    regionDe: 'Rioja',
+    regionZh: '里奥哈',
+    grapes: ['Tempranillo', 'Garnacha'],
+    grapesDe: ['Tempranillo', 'Garnacha'],
+    grapesZh: ['丹魄', '歌海娜'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'medium',
+    price: 'mid',
+    tasting: 'Elegant with red fruit, oak, and leather notes. Balanced acidity and smooth tannins.',
+    tastingDe: 'Elegant mit roten Früchten, Eiche und Lederaromen. Ausgewogene Säure und sanfte Tannine.',
+    tastingZh: '优雅，带有红色水果、橡木和皮革的味道。酸度平衡，单宁柔顺。',
+    pairing: 'Great with tapas, paella, and Spanish cuisine.',
+    pairingDe: 'Großartig zu Tapas, Paella und spanischer Küche.',
+    pairingZh: '与塔帕斯、海鲜饭和西班牙料理搭配很好。',
+    year: 2019,
+    alcohol: 13.5,
+  },
+  // 法国葡萄酒
+  {
+    id: '8',
+    name: 'Champagne Brut',
+    nameDe: 'Champagne Brut',
+    nameZh: '香槟干型',
+    qrCode: 'WEIN-CHAMPAGNE-BRUT-008',
+    barcode: '3010001001234',
+    country: 'France',
+    countryDe: 'Frankreich',
+    countryZh: '法国',
+    region: 'Champagne',
+    regionDe: 'Champagne',
+    regionZh: '香槟',
+    grapes: ['Chardonnay', 'Pinot Noir', 'Pinot Meunier'],
+    grapesDe: ['Chardonnay', 'Spätburgunder', 'Pinot Meunier'],
+    grapesZh: ['霞多丽', '黑皮诺', '莫尼耶皮诺'],
+    color: 'white',
+    style: 'sparkling',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'premium',
+    tasting: 'Fine bubbles with citrus, apple, and brioche notes. Crisp and elegant with a long finish.',
+    tastingDe: 'Feine Bläschen mit Zitrus-, Apfel- und Brioche-Noten. Knackig und elegant mit langem Abgang.',
+    tastingZh: '细腻的气泡，带有柑橘、苹果和奶油面包的味道。清爽优雅，余味悠长。',
+    pairing: 'Perfect for celebrations, oysters, and fine dining.',
+    pairingDe: 'Perfekt für Feiern, Austern und feine Küche.',
+    pairingZh: '适合庆祝、生蚝和精致料理。',
+    year: 2020,
+    alcohol: 12.0,
+    sourceUrl: 'https://www.moevenpick-wein.de/2024-chardonnay-reserve-trocken-godramsteiner-munzberg-bernhard-koch.html',
+  },
+  {
+    id: '9',
+    name: 'Bordeaux Rouge',
+    nameDe: 'Bordeaux Rouge',
+    nameZh: '波尔多红葡萄酒',
+    qrCode: 'WEIN-BORDEAUX-ROUGE-009',
+    barcode: '3010001001235',
+    country: 'France',
+    countryDe: 'Frankreich',
+    countryZh: '法国',
+    region: 'Bordeaux',
+    regionDe: 'Bordeaux',
+    regionZh: '波尔多',
+    grapes: ['Cabernet Sauvignon', 'Merlot'],
+    grapesDe: ['Cabernet Sauvignon', 'Merlot'],
+    grapesZh: ['赤霞珠', '梅洛'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'full',
+    price: 'premium',
+    tasting: 'Complex with blackcurrant, cedar, and tobacco. Firm tannins with great aging potential.',
+    tastingDe: 'Komplex mit schwarzer Johannisbeere, Zedernholz und Tabak. Feste Tannine mit großem Alterungspotenzial.',
+    tastingZh: '复杂，带有黑醋栗、雪松和烟草的味道。单宁紧实，陈年潜力大。',
+    pairing: 'Excellent with red meat, game, and strong cheeses.',
+    pairingDe: 'Ausgezeichnet zu rotem Fleisch, Wild und kräftigen Käsesorten.',
+    pairingZh: '与红肉、野味和浓郁奶酪搭配极佳。',
+    year: 2020,
+    alcohol: 13.5,
+  },
+  {
+    id: '10',
+    name: 'Burgundy Pinot Noir',
+    nameDe: 'Burgunder Pinot Noir',
+    nameZh: '勃艮第黑皮诺',
+    qrCode: 'WEIN-BURGUNDY-PINOT-010',
+    barcode: '3010001001236',
+    country: 'France',
+    countryDe: 'Frankreich',
+    countryZh: '法国',
+    region: 'Burgundy',
+    regionDe: 'Burgund',
+    regionZh: '勃艮第',
+    grapes: ['Pinot Noir'],
+    grapesDe: ['Spätburgunder'],
+    grapesZh: ['黑皮诺'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'medium',
+    price: 'premium',
+    tasting: 'Elegant and refined with cherry, raspberry, and earthy notes. Silky tannins with great finesse.',
+    tastingDe: 'Elegant und raffiniert mit Kirsch-, Himbeer- und erdigen Noten. Seidige Tannine mit großer Finesse.',
+    tastingZh: '优雅精致，带有樱桃、覆盆子和泥土的味道。单宁如丝般柔顺，细腻优雅。',
+    pairing: 'Perfect with duck, salmon, and mushroom dishes.',
+    pairingDe: 'Perfekt zu Ente, Lachs und Pilzgerichten.',
+    pairingZh: '与鸭肉、三文鱼和蘑菇菜肴完美搭配。',
+    year: 2021,
+    alcohol: 13.0,
+  },
+  // 意大利葡萄酒
+  {
+    id: '11',
+    name: 'Chianti Classico',
+    nameDe: 'Chianti Classico',
+    nameZh: '经典基安蒂',
+    qrCode: 'WEIN-CHIANTI-CLASSICO-011',
+    barcode: '8000001001234',
+    country: 'Italy',
+    countryDe: 'Italien',
+    countryZh: '意大利',
+    region: 'Tuscany',
+    regionDe: 'Toskana',
+    regionZh: '托斯卡纳',
+    grapes: ['Sangiovese'],
+    grapesDe: ['Sangiovese'],
+    grapesZh: ['桑娇维塞'],
+    color: 'red',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'medium',
+    price: 'mid',
+    tasting: 'Bright acidity with cherry, plum, and herbal notes. Medium-bodied with a dry finish.',
+    tastingDe: 'Helle Säure mit Kirsch-, Pflaumen- und Kräuternoten. Mittelkörperig mit trockenem Abgang.',
+    tastingZh: '明亮的酸度，带有樱桃、李子和草本的味道。中等酒体，收尾干爽。',
+    pairing: 'Classic with pasta, pizza, and Italian cuisine.',
+    pairingDe: 'Klassisch zu Pasta, Pizza und italienischer Küche.',
+    pairingZh: '与意大利面、披萨和意大利料理经典搭配。',
+    year: 2021,
+    alcohol: 13.0,
+  },
+  {
+    id: '12',
+    name: 'Prosecco',
+    nameDe: 'Prosecco',
+    nameZh: '普洛赛克',
+    qrCode: 'WEIN-PROSECCO-012',
+    barcode: '8000001001235',
+    country: 'Italy',
+    countryDe: 'Italien',
+    countryZh: '意大利',
+    region: 'Veneto',
+    regionDe: 'Venetien',
+    regionZh: '威尼托',
+    grapes: ['Glera'],
+    grapesDe: ['Glera'],
+    grapesZh: ['格雷拉'],
+    color: 'white',
+    style: 'sparkling',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'mid',
+    tasting: 'Fresh and fruity with apple, pear, and white flower notes. Light and refreshing.',
+    tastingDe: 'Frisch und fruchtig mit Apfel-, Birnen- und weißen Blütennoten. Leicht und erfrischend.',
+    tastingZh: '新鲜果味，带有苹果、梨和白色花朵的味道。轻盈清爽。',
+    pairing: 'Perfect for aperitifs, light appetizers, and casual occasions.',
+    pairingDe: 'Perfekt für Aperitifs, leichte Vorspeisen und zwanglose Anlässe.',
+    pairingZh: '适合开胃酒、清淡开胃菜和休闲场合。',
+    year: 2023,
+    alcohol: 11.0,
+  },
+  // Miraval Rosé
+  {
+    id: '20',
+    name: 'Miraval Rosé',
+    nameDe: 'Miraval Rosé',
+    nameZh: '米拉瓦尔桃红',
+    qrCode: 'WEIN-MIRAVAL-ROSE-020',
+    barcode: '8000001001240',
+    country: 'France',
+    countryDe: 'Frankreich',
+    countryZh: '法国',
+    region: 'Provence',
+    regionDe: 'Provence',
+    regionZh: '普罗旺斯',
+    grapes: ['Cinsault', 'Grenache', 'Rolle (Vermentino)', 'Syrah'],
+    grapesDe: ['Cinsault', 'Grenache', 'Rolle (Vermentino)', 'Syrah'],
+    grapesZh: ['神索', '歌海娜', '侯尔（维蒙蒂诺）', '西拉'],
+    color: 'rose',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'premium',
+    tasting: 'The cult rosé with Hollywood glamour. Fresh and elegant with notes of red berries, citrus, and white flowers. A cult wine from Provence that made it into Wine Spectator\'s Top 100 best wines in the world.',
+    tastingDe: 'Der Kult-Rosé mit Hollywood-Glamour. Frisch und elegant mit Noten von roten Beeren, Zitrusfrüchten und weißen Blüten. Ein Kultwein aus der Provence, der es beim Wine Spectator als einziger Rosé in die Top 100 der weltbesten Weine schaffte.',
+    tastingZh: '具有好莱坞魅力的经典桃红葡萄酒。新鲜优雅，带有红浆果、柑橘和白色花朵的味道。来自普罗旺斯的经典葡萄酒，是唯一进入《葡萄酒观察家》全球百大最佳葡萄酒的桃红葡萄酒。',
+    pairing: 'Perfect for aperitifs, light seafood dishes, salads, and summer occasions.',
+    pairingDe: 'Perfekt für Aperitifs, leichte Fischgerichte, Salate und sommerliche Anlässe.',
+    pairingZh: '适合开胃酒、清淡海鲜菜肴、沙拉和夏季场合。',
+    year: 2024,
+    alcohol: 13.0,
+    sourceUrl: 'https://www.moevenpick-wein.de/2024-miraval-rose-cotes-de-provence-aop-familles-pitt-perrin.html',
+  },
+  // Roero Arneis
+  {
+    id: '21',
+    name: 'Roero Arneis',
+    nameDe: 'Roero Arneis',
+    nameZh: '罗埃罗阿内斯',
+    qrCode: 'WEIN-ROERO-ARNEIS-021',
+    barcode: '8000001001241',
+    country: 'Italy',
+    countryDe: 'Italien',
+    countryZh: '意大利',
+    region: 'Piedmont',
+    regionDe: 'Piemont',
+    regionZh: '皮埃蒙特',
+    grapes: ['Arneis'],
+    grapesDe: ['Arneis'],
+    grapesZh: ['阿内斯'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'medium',
+    price: 'mid',
+    tasting: 'Fresh and aromatic with notes of pear, apple, and white flowers. Crisp acidity with a mineral finish.',
+    tastingDe: 'Frisch und aromatisch mit Noten von Birne, Apfel und weißen Blüten. Lebendige Säure mit mineralischem Abgang.',
+    tastingZh: '新鲜芳香，带有梨、苹果和白色花朵的味道。酸度活泼，余味带有矿物感。',
+    pairing: 'Perfect with seafood, light pasta dishes, and fresh salads.',
+    pairingDe: 'Perfekt zu Meeresfrüchten, leichten Pastagerichten und frischen Salaten.',
+    pairingZh: '适合海鲜、清淡意面和新鲜沙拉。',
+    year: 2024,
+    alcohol: 12.5,
+    sourceUrl: 'https://www.moevenpick-wein.de/2024-roero-arneis-docg-l',
+  },
+  // 更多德国葡萄酒
+  {
+    id: '13',
+    name: 'Müller-Thurgau',
+    nameDe: 'Müller-Thurgau',
+    nameZh: '米勒-图高',
+    qrCode: 'WEIN-MULLER-THURGAU-013',
+    barcode: '4001234567895',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Rheinhessen',
+    regionDe: 'Rheinhessen',
+    regionZh: '莱茵黑森',
+    grapes: ['Müller-Thurgau'],
+    grapesDe: ['Müller-Thurgau'],
+    grapesZh: ['米勒-图高'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'off-dry',
+    body: 'light',
+    price: 'budget',
+    tasting: 'Light and fruity with floral and citrus notes. Easy-drinking and approachable.',
+    tastingDe: 'Leicht und fruchtig mit blumigen und Zitrusnoten. Leicht trinkbar und zugänglich.',
+    tastingZh: '轻盈果味，带有花香和柑橘的味道。易于饮用，平易近人。',
+    pairing: 'Great with light salads, fish, and casual meals.',
+    pairingDe: 'Großartig zu leichten Salaten, Fisch und einfachen Mahlzeiten.',
+    pairingZh: '与清淡沙拉、鱼类和便餐搭配很好。',
+    year: 2023,
+    alcohol: 11.5,
+  },
+  {
+    id: '14',
+    name: 'Silvaner',
+    nameDe: 'Silvaner',
+    nameZh: '西万尼',
+    qrCode: 'WEIN-SILVANER-014',
+    barcode: '4001234567896',
+    country: 'Germany',
+    countryDe: 'Deutschland',
+    countryZh: '德国',
+    region: 'Franken',
+    regionDe: 'Franken',
+    regionZh: '弗兰肯',
+    grapes: ['Silvaner'],
+    grapesDe: ['Silvaner'],
+    grapesZh: ['西万尼'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'light',
+    price: 'mid',
+    tasting: 'Crisp and mineral with green apple and herbal notes. Clean and refreshing.',
+    tastingDe: 'Knackig und mineralisch mit grünem Apfel und Kräuternoten. Sauber und erfrischend.',
+    tastingZh: '清爽矿物质，带有青苹果和草本的味道。干净清爽。',
+    pairing: 'Perfect with asparagus, white fish, and light dishes.',
+    pairingDe: 'Perfekt zu Spargel, weißem Fisch und leichten Gerichten.',
+    pairingZh: '与芦笋、白鱼和清淡菜肴完美搭配。',
+    year: 2022,
+    alcohol: 12.0,
+  },
+];
+
+// 根据名称搜索
+export function searchWineByName(query: string, locale: 'en' | 'de' | 'zh' = 'en'): Wine[] {
+  const lowerQuery = query.toLowerCase().trim();
+  if (!lowerQuery) return [];
+
+  // 分割查询词（支持多个关键词）
+  const queryWords = lowerQuery.split(/[\s\-_\.\/]+/).filter(w => w.length > 0);
+
+  return wines.filter((wine) => {
+    const name = locale === 'de' && wine.nameDe ? wine.nameDe.toLowerCase() :
+                 locale === 'zh' && wine.nameZh ? wine.nameZh.toLowerCase() :
+                 wine.name.toLowerCase();
+    
+    const nameEn = wine.name.toLowerCase();
+    const nameDe = wine.nameDe?.toLowerCase() || '';
+    const nameZh = wine.nameZh?.toLowerCase() || '';
+    const region = wine.region.toLowerCase();
+    const regionDe = wine.regionDe?.toLowerCase() || '';
+    const regionZh = wine.regionZh?.toLowerCase() || '';
+    const country = wine.country.toLowerCase();
+    const countryDe = wine.countryDe?.toLowerCase() || '';
+    const countryZh = wine.countryZh?.toLowerCase() || '';
+    const grapes = wine.grapes.map(g => g.toLowerCase());
+    const grapesDe = wine.grapesDe?.map(g => g.toLowerCase()) || [];
+    const grapesZh = wine.grapesZh?.map(g => g.toLowerCase()) || [];
+
+    // 检查每个查询词是否匹配
+    return queryWords.some(word => {
+      return name.includes(word) ||
+             nameEn.includes(word) ||
+             nameDe.includes(word) ||
+             nameZh.includes(word) ||
+             region.includes(word) ||
+             regionDe.includes(word) ||
+             regionZh.includes(word) ||
+             country.includes(word) ||
+             countryDe.includes(word) ||
+             countryZh.includes(word) ||
+             grapes.some(g => g.includes(word)) ||
+             grapesDe.some(g => g.includes(word)) ||
+             grapesZh.some(g => g.includes(word));
+    });
+  });
+}
+
+// 根据二维码或条形码搜索
+export function searchWineByCode(code: string): Wine | undefined {
+  return wines.find(
+    (wine) => wine.qrCode === code || wine.barcode === code
+  );
+}
+
+// 根据 ID 获取酒
+export function getWineById(id: string): Wine | undefined {
+  return wines.find((wine) => wine.id === id);
+}
+
