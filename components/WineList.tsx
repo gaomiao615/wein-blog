@@ -11,9 +11,11 @@ import type { WineFilterState } from './WineFilters';
 interface WineListProps {
   filters?: WineFilterState;
   showCollectionOnly?: boolean;
+  columns?: 2 | 3; // 布局列数
+  onColumnsChange?: (columns: 2 | 3) => void;
 }
 
-export function WineList({ filters, showCollectionOnly = false }: WineListProps) {
+export function WineList({ filters, showCollectionOnly = false, columns = 2, onColumnsChange }: WineListProps) {
   const { locale } = useI18n();
   const [displayedWines, setDisplayedWines] = useState<Wine[]>([]);
   const [collectionIds, setCollectionIds] = useState<string[]>([]);
@@ -30,19 +32,13 @@ export function WineList({ filters, showCollectionOnly = false }: WineListProps)
       filtered = filtered.filter(wine => collectionIds.includes(wine.id));
     }
 
-    // 应用筛选器
+    // 应用筛选器（只保留颜色、风格、价格）
     if (filters) {
       if (filters.color.length > 0) {
         filtered = filtered.filter(wine => filters.color.includes(wine.color));
       }
       if (filters.style.length > 0) {
         filtered = filtered.filter(wine => filters.style.includes(wine.style));
-      }
-      if (filters.sweetness.length > 0) {
-        filtered = filtered.filter(wine => filters.sweetness.includes(wine.sweetness));
-      }
-      if (filters.body.length > 0) {
-        filtered = filtered.filter(wine => filters.body.includes(wine.body));
       }
       if (filters.price.length > 0) {
         filtered = filtered.filter(wine => filters.price.includes(wine.price));
@@ -66,8 +62,11 @@ export function WineList({ filters, showCollectionOnly = false }: WineListProps)
     );
   }
 
+  // 根据列数设置网格布局
+  const gridCols = columns === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 lg:grid-cols-2';
+
   return (
-    <div className="space-y-6 mt-6">
+    <div className={`grid ${gridCols} gap-6 mt-6`}>
       {displayedWines.map((wine) => {
         const isCollected = collectionIds.includes(wine.id);
         return (

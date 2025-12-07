@@ -78,16 +78,16 @@ export function WineCardModern({ wine, isCollected = false }: WineCardModernProp
   return (
     <Link
       href={`/wines/${wine.id}`}
-      className="group block bg-white rounded-2xl border-4 border-gray-900 hover:border-blue-500 transition-all duration-200 overflow-hidden shadow-[8px_8px_0_0_rgba(0,0,0,0.1)] hover:shadow-[12px_12px_0_0_rgba(59,130,246,0.2)]"
+      className="group block h-full bg-white rounded-2xl border-4 border-gray-900 hover:border-blue-500 transition-all duration-200 overflow-hidden shadow-[8px_8px_0_0_rgba(0,0,0,0.1)] hover:shadow-[12px_12px_0_0_rgba(59,130,246,0.2)]"
     >
-      <div className="flex flex-col md:flex-row">
-        {/* 左侧：酒瓶图片 - 漫画风格 */}
-        <div className="flex-shrink-0 w-full md:w-48 bg-gradient-to-br from-yellow-100 to-orange-100 flex items-center justify-center p-4 border-r-4 md:border-r-4 md:border-b-0 border-b-4 border-gray-900">
-          <div className="relative w-full h-64 md:h-80 flex items-center justify-center">
+      <div className="flex flex-col h-full">
+        {/* 顶部：酒瓶图片 - 漫画风格 */}
+        <div className="flex-shrink-0 w-full bg-gradient-to-br from-yellow-100 to-orange-100 flex items-center justify-center p-4 border-b-4 border-gray-900">
+          <div className="relative w-full h-48 flex items-center justify-center">
             {usePlaceholder ? (
               <div className="relative">
                 {/* 简单的漫画风格酒瓶 */}
-                <div className={`w-24 h-48 md:w-32 md:h-64 rounded-t-3xl rounded-b-lg border-4 border-gray-900 ${
+                <div className={`w-20 h-40 rounded-t-3xl rounded-b-lg border-4 border-gray-900 ${
                   wine.color === 'red' ? 'bg-red-500' : 
                   wine.color === 'white' ? 'bg-yellow-200' : 
                   'bg-pink-400'
@@ -131,7 +131,7 @@ export function WineCardModern({ wine, isCollected = false }: WineCardModernProp
           </div>
         </div>
 
-        {/* 右侧：详细信息 - 漫画风格 */}
+        {/* 底部：详细信息 - 漫画风格 */}
         <div className="flex-1 p-6 flex flex-col justify-between bg-white">
           <div>
             {/* 酒名 - 粗体大字 */}

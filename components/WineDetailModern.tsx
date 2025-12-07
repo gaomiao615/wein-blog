@@ -27,6 +27,12 @@ interface WineDetailModernProps {
     personalNotes?: string;
     inCollection?: boolean;
     rating?: number;
+    ratingMax?: number;
+    caloriesKj?: number;
+    caloriesKcal?: number;
+    subregion?: string;
+    subregionDe?: string;
+    subregionZh?: string;
     imageUrl?: string;
     sourceUrl?: string;
     year?: number;
@@ -244,7 +250,7 @@ export function WineDetailModern({ wine, onToggleCollection, onSaveNotes, wineId
             {/* 信息块区域 - 漫画风格卡片 */}
             <div className="space-y-4">
               {/* 地区信息 */}
-              {(wine.country || wine.region) && (
+              {(wine.country || wine.region || wine.subregion) && (
                 <div className="bg-white border-4 border-gray-900 rounded-xl p-5 shadow-[4px_4px_0_0_rgba(0,0,0,0.1)]">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-16 h-16 bg-blue-200 border-2 border-gray-900 rounded-xl flex items-center justify-center text-3xl">
@@ -254,13 +260,20 @@ export function WineDetailModern({ wine, onToggleCollection, onSaveNotes, wineId
                       <div className="text-xs font-black text-gray-600 uppercase tracking-wide mb-2">
                         {locale === 'de' ? 'REGION' : locale === 'zh' ? '产区' : 'REGION'}
                       </div>
-                      <div className="text-2xl font-black text-gray-900">
+                      <div className="text-2xl font-black text-gray-900 mb-2">
                         {wine.country && (
                           <span>{wine.country}</span>
                         )}
                         {wine.country && wine.region && <span>, </span>}
                         {wine.region && <span>{wine.region}</span>}
                       </div>
+                      {wine.subregion && (
+                        <div className="text-lg font-bold text-gray-700">
+                          {locale === 'de' && wine.subregionDe ? wine.subregionDe :
+                           locale === 'zh' && wine.subregionZh ? wine.subregionZh :
+                           wine.subregion}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -342,7 +355,7 @@ export function WineDetailModern({ wine, onToggleCollection, onSaveNotes, wineId
               )}
 
               {/* 技术信息 */}
-              {(wine.year || wine.alcohol) && (
+              {(wine.year || wine.alcohol || wine.rating || wine.caloriesKj || wine.caloriesKcal) && (
                 <div className="bg-white border-4 border-gray-900 rounded-xl p-5 shadow-[4px_4px_0_0_rgba(0,0,0,0.1)]">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-16 h-16 bg-indigo-200 border-2 border-gray-900 rounded-xl flex items-center justify-center text-3xl">
@@ -363,6 +376,22 @@ export function WineDetailModern({ wine, onToggleCollection, onSaveNotes, wineId
                           <div className="px-4 py-2 bg-green-100 border-2 border-gray-900 rounded-lg font-black text-gray-900">
                             <span className="text-xs">{locale === 'de' ? 'Alkohol' : locale === 'zh' ? '酒精度' : 'Alcohol'}: </span>
                             <span className="text-lg">{wine.alcohol}%</span>
+                          </div>
+                        )}
+                        {wine.rating && (
+                          <div className="px-4 py-2 bg-yellow-100 border-2 border-gray-900 rounded-lg font-black text-gray-900">
+                            <span className="text-xs">{locale === 'de' ? 'Bewertung' : locale === 'zh' ? '评分' : 'Rating'}: </span>
+                            <span className="text-lg">{wine.rating}/{wine.ratingMax || 20}</span>
+                          </div>
+                        )}
+                        {(wine.caloriesKj || wine.caloriesKcal) && (
+                          <div className="px-4 py-2 bg-orange-100 border-2 border-gray-900 rounded-lg font-black text-gray-900">
+                            <span className="text-xs">{locale === 'de' ? 'Energie' : locale === 'zh' ? '热量' : 'Energy'}: </span>
+                            <span className="text-lg">
+                              {wine.caloriesKj && `${wine.caloriesKj} kJ`}
+                              {wine.caloriesKj && wine.caloriesKcal && ' / '}
+                              {wine.caloriesKcal && `${wine.caloriesKcal} kcal`}
+                            </span>
                           </div>
                         )}
                         <div className="px-4 py-2 bg-purple-100 border-2 border-gray-900 rounded-lg font-black text-gray-900">

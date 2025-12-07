@@ -51,6 +51,11 @@ export default function WineDetailPage({ params }: WineDetailPageProps) {
     region: locale === 'de' && wine.regionDe ? wine.regionDe :
             locale === 'zh' && wine.regionZh ? wine.regionZh :
             wine.region,
+    subregion: locale === 'de' && wine.subregionDe ? wine.subregionDe :
+               locale === 'zh' && wine.subregionZh ? wine.subregionZh :
+               wine.subregion,
+    subregionDe: wine.subregionDe,
+    subregionZh: wine.subregionZh,
     grapes: locale === 'de' && wine.grapesDe ? wine.grapesDe :
             locale === 'zh' && wine.grapesZh ? wine.grapesZh :
             wine.grapes,
@@ -62,7 +67,10 @@ export default function WineDetailPage({ params }: WineDetailPageProps) {
              wine.pairing,
     personalNotes,
     inCollection,
-    rating: undefined,
+    rating: wine.rating,
+    ratingMax: wine.ratingMax,
+    caloriesKj: wine.caloriesKj,
+    caloriesKcal: wine.caloriesKcal,
     imageUrl: wine.imageUrl,
     sourceUrl: sourceUrl,
     year: wine.year,

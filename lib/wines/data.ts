@@ -30,6 +30,13 @@ export interface Wine {
   alcohol?: number;
   imageUrl?: string;
   sourceUrl?: string; // 原网址链接
+  rating?: number; // 评分（如 19/20）
+  ratingMax?: number; // 评分满分（默认20）
+  caloriesKj?: number; // 热量（千焦）
+  caloriesKcal?: number; // 热量（千卡）
+  subregion?: string; // 详细产地/子产区
+  subregionDe?: string;
+  subregionZh?: string;
 }
 
 export const wines: Wine[] = [
@@ -463,6 +470,44 @@ export const wines: Wine[] = [
     year: 2024,
     alcohol: 12.5,
     sourceUrl: 'https://www.moevenpick-wein.de/2024-roero-arneis-docg-l',
+  },
+  // Meursault (勃艮第白葡萄酒)
+  {
+    id: '22',
+    name: 'Meursault',
+    nameDe: 'Meursault',
+    nameZh: '默尔索',
+    qrCode: 'WEIN-MEURSAULT-022',
+    barcode: '8000001001242',
+    country: 'France',
+    countryDe: 'Frankreich',
+    countryZh: '法国',
+    region: 'Burgundy',
+    regionDe: 'Burgund',
+    regionZh: '勃艮第',
+    grapes: ['Chardonnay'],
+    grapesDe: ['Chardonnay'],
+    grapesZh: ['霞多丽'],
+    color: 'white',
+    style: 'still',
+    sweetness: 'dry',
+    body: 'full',
+    price: 'premium',
+    tasting: 'Rich and buttery with notes of hazelnut, butter, and white flowers. Full-bodied with great complexity and a long finish.',
+    tastingDe: 'Reich und buttrig mit Noten von Haselnuss, Butter und weißen Blüten. Vollmundig mit großer Komplexität und langem Abgang.',
+    tastingZh: '丰富而带有黄油味，带有榛子、黄油和白色花朵的味道。酒体饱满，复杂度高，余味悠长。',
+    pairing: 'Perfect with lobster, scallops, and rich seafood dishes.',
+    pairingDe: 'Perfekt zu Hummer, Jakobsmuscheln und reichhaltigen Fischgerichten.',
+    pairingZh: '与龙虾、扇贝和丰富的海鲜菜肴完美搭配。',
+    year: 2023,
+    alcohol: 13.5,
+    rating: 19,
+    ratingMax: 20,
+    caloriesKj: 328,
+    caloriesKcal: 79,
+    subregion: 'Côte de Beaune',
+    subregionDe: 'Côte de Beaune',
+    subregionZh: '博讷丘',
   },
   // 更多德国葡萄酒
   {

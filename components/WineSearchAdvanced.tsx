@@ -190,6 +190,7 @@ export function WineSearchAdvanced({ onWineSelect }: WineSearchAdvancedProps) {
         { patterns: ['pesquera-crianza', 'pesquera crianza', 'pesqueracrianza'], wineId: '8' },
         { patterns: ['prosecco'], wineId: '12' },
         { patterns: ['roero-arneis', 'roero arneis', 'roeroarneis', 'roero', 'arneis'], wineId: '21' },
+        { patterns: ['meursault'], wineId: '22' },
       ];
       
       // 首先尝试精确匹配完整酒名
@@ -264,6 +265,7 @@ export function WineSearchAdvanced({ onWineSelect }: WineSearchAdvancedProps) {
         { terms: ['pesquera crianza', 'pesquera'], match: 'pesquera crianza', priority: 1 },
         { terms: ['prosecco'], match: 'prosecco', priority: 1 },
         { terms: ['roero arneis', 'roero-arneis', 'roero', 'arneis'], match: 'roero arneis', priority: 1 },
+        { terms: ['meursault'], match: 'meursault', priority: 1 },
         // 葡萄品种
         { terms: ['riesling', '雷司令'], match: 'riesling', priority: 2 },
         { terms: ['spatburgunder', 'spätburgunder', 'pinot noir', 'pinot', '黑皮诺'], match: 'spatburgunder', priority: 2 },
@@ -330,7 +332,8 @@ export function WineSearchAdvanced({ onWineSelect }: WineSearchAdvancedProps) {
         
         for (const word of words) {
           // 跳过常见非关键词
-          if (['www', 'http', 'https', 'com', 'de', 'en', 'wine', 'wein', '2022', '2023', '2024', 'aop', 'familles', 'pitt', 'perrin', 'cotes'].includes(word)) {
+          const skipWords = ['www', 'http', 'https', 'com', 'de', 'en', 'wine', 'wein', '2022', '2023', '2024', 'aop', 'aoc', 'docg', 'familles', 'pitt', 'perrin', 'cotes', 'les', 'vignes', 'html', 'htm', 'php', 'aspx'];
+          if (skipWords.includes(word)) {
             continue;
           }
           
@@ -343,32 +346,72 @@ export function WineSearchAdvanced({ onWineSelect }: WineSearchAdvancedProps) {
         }
       }
 
-      // 如果还没找到，尝试模糊匹配（部分匹配）- 最后备选
+      // 如果还没找到，使用智能评分系统进行多维度匹配
       if (!foundWine) {
-        const searchWords = allText.split(/[\s\-_\.\/]+/).filter(w => w.length > 4);
+        const searchWords = allText.split(/[\s\-_\.\/]+/).filter(w => w.length > 3);
+        const filteredWords = searchWords.filter(word => 
+          !['www', 'http', 'https', 'com', 'de', 'en', 'wine', 'wein', '2022', '2023', '2024', 'aop', 'aoc', 'docg', 'familles', 'pitt', 'perrin', 'cotes', 'les', 'vignes', 'html'].includes(word)
+        );
+        
+        console.log('URL分析 - 过滤后的关键词:', filteredWords);
+        
+        // 为每个酒计算匹配分数
+        const wineScores: Array<{ wine: Wine; score: number; matches: string[] }> = [];
         
         for (const wine of allWines) {
+          let score = 0;
+          const matches: string[] = [];
+          
           const wineNameLower = wine.name.toLowerCase();
           const wineNameDeLower = wine.nameDe?.toLowerCase() || '';
           const wineNameZhLower = wine.nameZh?.toLowerCase() || '';
+          const regionLower = wine.region.toLowerCase();
+          const regionDeLower = wine.regionDe?.toLowerCase() || '';
+          const regionZhLower = wine.regionZh?.toLowerCase() || '';
+          const countryLower = wine.country.toLowerCase();
+          const countryDeLower = wine.countryDe?.toLowerCase() || '';
+          const grapesLower = wine.grapes.map(g => g.toLowerCase());
+          const grapesDeLower = wine.grapesDe?.map(g => g.toLowerCase()) || [];
           
-          for (const word of searchWords) {
-            // 跳过常见非关键词
-            if (['www', 'http', 'https', 'com', 'de', 'en', 'wine', 'wein', '2022', '2023', '2024', 'aop', 'familles', 'pitt', 'perrin', 'cotes'].includes(word)) {
-              continue;
+          for (const word of filteredWords) {
+            // 酒名完全匹配（最高分）
+            if (wineNameLower.includes(word) || wineNameDeLower.includes(word) || wineNameZhLower.includes(word)) {
+              score += 10;
+              matches.push(`酒名:${word}`);
             }
-            
-            if (wineNameLower.includes(word) || 
-                wineNameDeLower.includes(word) || 
-                wineNameZhLower.includes(word) ||
-                wine.region.toLowerCase().includes(word) ||
-                wine.grapes.some(g => g.toLowerCase().includes(word))) {
-              foundWine = wine;
-              console.log('URL模糊匹配成功:', word, '->', foundWine.name);
-              break;
+            // 地区匹配（高分）
+            else if (regionLower.includes(word) || regionDeLower.includes(word) || regionZhLower.includes(word)) {
+              score += 8;
+              matches.push(`地区:${word}`);
+            }
+            // 葡萄品种匹配（高分）
+            else if (grapesLower.some(g => g.includes(word)) || grapesDeLower.some(g => g.includes(word))) {
+              score += 8;
+              matches.push(`葡萄:${word}`);
+            }
+            // 国家匹配（中分）
+            else if (countryLower.includes(word) || countryDeLower.includes(word)) {
+              score += 5;
+              matches.push(`国家:${word}`);
+            }
+            // 部分匹配（低分）
+            else if (wineNameLower.includes(word.substring(0, 4)) || 
+                     regionLower.includes(word.substring(0, 4))) {
+              score += 2;
+              matches.push(`部分:${word}`);
             }
           }
-          if (foundWine) break;
+          
+          if (score > 0) {
+            wineScores.push({ wine, score, matches });
+          }
+        }
+        
+        // 按分数排序，选择得分最高的酒
+        if (wineScores.length > 0) {
+          wineScores.sort((a, b) => b.score - a.score);
+          foundWine = wineScores[0].wine;
+          console.log('URL智能匹配成功:', foundWine.name, '得分:', wineScores[0].score, '匹配:', wineScores[0].matches);
         }
       }
 
