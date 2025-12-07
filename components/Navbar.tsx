@@ -16,19 +16,19 @@ export function Navbar() {
               Wein Blog
             </Link>
             <div className="hidden md:flex space-x-6">
-              <Link href="/" className="text-gray-700 hover:text-gray-900">
+              <Link href="/" className="text-gray-700 hover:text-gray-900" suppressHydrationWarning>
                 {t('nav.home')}
               </Link>
-              <Link href="/blog" className="text-gray-700 hover:text-gray-900">
+              <Link href="/blog" className="text-gray-700 hover:text-gray-900" suppressHydrationWarning>
                 {t('nav.blog')}
               </Link>
-              <Link href="/wines" className="text-gray-700 hover:text-gray-900">
+              <Link href="/wines" className="text-gray-700 hover:text-gray-900" suppressHydrationWarning>
                 {t('nav.wines')}
               </Link>
-              <Link href="/learning" className="text-gray-700 hover:text-gray-900">
+              <Link href="/learning" className="text-gray-700 hover:text-gray-900" suppressHydrationWarning>
                 {t('nav.learning')}
               </Link>
-              <Link href="/about" className="text-gray-700 hover:text-gray-900">
+              <Link href="/about" className="text-gray-700 hover:text-gray-900" suppressHydrationWarning>
                 {t('nav.about')}
               </Link>
             </div>

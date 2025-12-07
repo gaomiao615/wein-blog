@@ -44,7 +44,9 @@ function getTranslationValue(translations: Translations, key: string): string {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
+  // 始终从默认语言开始，避免服务器和客户端不一致
+  const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Sync locale changes to localStorage
   const setLocale = (newLocale: Locale) => {
@@ -60,7 +62,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   };
 
   // Hydrate from localStorage on mount (client-side only)
+  // 这确保服务器和客户端首次渲染时使用相同的默认语言
   useEffect(() => {
+    setIsMounted(true);
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored && (stored === 'en' || stored === 'de' || stored === 'zh')) {
       setLocaleState(stored as Locale);
